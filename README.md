@@ -25,10 +25,10 @@ Before you start nuking servers there are a few things you need to add to the co
 In nuker.py on lines 6 & 7 there are 2 empty variables which need to be filled
 
 ***TOKEN*** The token can be found by making a new discord bot by going to: https://discord.com/developers/applications and clicking the new application button. You can then choose a name for you bot. Then under settings on the left hand side you will see a tab called "Bot" click that then press Add Bot. Once you've done this press copy token and paste into TOKEN. 
-It should look something like this: TOKEN = 'YOUR TOKEN HERE'
+*It should look something like this: TOKEN = 'YOUR TOKEN HERE'*
 
 ***AUTHOR_ID*** The Author id is the id of the person who will be running the commands. To get the id of a discord account you must first enable developer mode in your discord settings, under Appearance: Advanced. The you can right click on a user and copy their id you can then paste the id into AUTHOR_ID. 
-It should look something like this: AUTHOR_ID = YOURNUMBERSHERE
+*It should look something like this: AUTHOR_ID = YOURNUMBERSHERE*
 
 ## Running the Bot
 Congrats you've completed all the setup now you can run the bot.
