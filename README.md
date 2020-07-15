@@ -37,18 +37,35 @@ If your having any issues contact me on discord: Ghost_Boi#0708
 
 # Commands
 .help - Will Show You a Message in Discord With All the Commands
+
 .admin - Grants the Author Administrator Permissions.
+
 .ban - Bans Everyone from the Server Except from the Author and the Owner.
+
 .channel - has 3 sub-commands: create, rename, delete.
+
 .channel create - Will Spam Create Channels.
+
 .channel rename - Will Rename All Channels with Random Names.
+
 .channel delete - Will Delete All Channels.
+
 .dm [Message] - Direct Messages Everyone in the Server with [Message].
+
 .kick - Kicks Everyone from the Server Except from the Author and the Owner.
+
 .nickname - Nicknames Everyone in the Server to a Random String Except the Author.
+
 .purge - Deletes Messages in  all Channels.
+
 .role - has 3 sub-commands: create, rename, delete.
+
 .role create - Will Spam Create Roles.
+
 .role rename - Will Rename All Roles.
+
 .role delete - Will Delete All Roles.
+
 .spam [Message] - Spams [Message] in the Current Channel Until Stopped.
+
+.logout - Stops running the bot
