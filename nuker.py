@@ -4,7 +4,7 @@ import string
 import random
 
 TOKEN = ''
-AUTHOR_ID = ''
+AUTHOR_ID = 
 
 client = commands.Bot(
     command_prefix='.',
