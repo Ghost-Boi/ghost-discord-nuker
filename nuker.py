@@ -266,4 +266,4 @@ async def nickname(ctx):
 async def logout(ctx):
     await client.logout()
 
-client.run('NzI5Njk5OTIyMTUyMTI4NTEz.XwM_hw.pzkFNnGNCgivw5yH36QOgcCa7KE')
+client.run('INSERT TOKEN HERE')
