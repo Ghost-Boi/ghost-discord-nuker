@@ -3,13 +3,17 @@ from discord.ext import commands
 import string
 import random
 
+TOKEN = ''
+AUTHOR_ID = ''
+
 client = commands.Bot(
     command_prefix='.',
     case_insensitive=True
 )
+client.remove_command('help')
 
 def allowed(ctx):
-    return ctx.author.id == 464357704446771201, 280598351722971136
+    return ctx.author.id == AUTHOR_ID
     
 
 @client.event
@@ -39,7 +43,7 @@ async def on_command_error(ctx, error):
 
 @client.command()
 @commands.check(allowed)
-async def nukehelp(ctx):
+async def help(ctx):
     embedVar = discord.Embed(title="Commands",description="All Nuker Commands", color=0x00ff00)
     embedVar.add_field(name="Prefix", value="'.'", inline=False)
     embedVar.add_field(name="Author", value="Determined on line 12.", inline=False)
@@ -59,7 +63,7 @@ async def nukehelp(ctx):
     embedVar.add_field(name=".role delete", value="Will Delete All Roles", inline=False)
     embedVar.add_field(name=".spam [Message]", value="Spams [Message] in the Current Channel Until Stopped.", inline=False)
     await ctx.send(embed=embedVar)
-    print('.nukehelp')
+    print('.help')
     
 
 
@@ -266,4 +270,4 @@ async def nickname(ctx):
 async def logout(ctx):
     await client.logout()
 
-client.run('INSERT TOKEN HERE')
+client.run(TOKEN)
