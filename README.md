@@ -32,7 +32,7 @@ In nuker.py on lines 6 & 7 there are 2 empty variables which need to be filled
 
 ## Running the Bot
 Congrats you've completed all the setup now you can run the bot.
-If your using PyCharm you can right click any blank space of code and click run it will run the bot.
+Run the start.bat file and nuke away!
 
 ## Issues
 If your having any issues contact me on discord: Ghost_Boi#0708
