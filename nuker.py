@@ -25,7 +25,8 @@ async def on_ready():
         activity=discord.Game('NUKING SERVERS')
     )
     print(
-        f'\nLogged in as {client.user.name}#{client.user.discriminator},',
+        f'\n',
+        f'Logged in as {client.user.name}#{client.user.discriminator},',
         f'User ID: {client.user.id}, Version: {discord.__version__}\n',
         f'DISCORD BOT WRITTEN BY GHOST_BOI: https://github.com/Ghost-Boi/ghost-discord-nuker\n'
     )
