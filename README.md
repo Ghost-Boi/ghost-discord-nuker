@@ -35,7 +35,7 @@ Congrats you've completed all the setup now you can run the bot.
 Run the start.bat file and nuke away!
 
 ## Issues
-If your having any issues contact me on discord: Ghost_Boi#0708
+If your having any issues contact me on discord: Ghost_Boi#0001
 
 # Commands
 .help - Will Show You a Message in Discord With All the Commands
